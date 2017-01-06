@@ -79,18 +79,25 @@ function createBlob(center, maxRadius, points) {
 function createEyes(center, maxRadius){
     var eyeMinSize = 3;
     var eyeMaxSize = 15
-    var eyeOffset = (Math.random() * maxRadius * 0.5)
-    var eye1 = new Path.Circle({
-        radius: getRandomArbitrary(eyeMinSize, eyeMaxSize),
-        center: [center.x+eyeOffset, center.y],
-        strokeColor: 'black'
-    });
-    var eye2 = new Path.Circle({
-        radius: getRandomArbitrary(eyeMinSize, eyeMaxSize),
-        center: [center.x-eyeOffset, center.y],
-        strokeColor: 'black'
-    });
-    return [eye1, eye2]
+
+    var eyeCount = 3;
+    var eyes = [];
+    for (var i=0; i<eyeCount; i++) {
+        var eyeOffset = new Point(
+        (Math.random() - 0.5) * maxRadius,
+        (Math.random() - 0.5) * 30
+        );
+
+        var eye = new Path.Circle({
+            radius: getRandomArbitrary(eyeMinSize, eyeMaxSize),
+            center: center + eyeOffset,
+            strokeColor: 'black'
+        });
+        eyes.push(eye);
+    }
+
+    return eyes;
+
 
 }
 
