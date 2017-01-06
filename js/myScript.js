@@ -4,8 +4,8 @@
 
 var values = {
     paths: 30,
-    minPoints: 5,
-    maxPoints: 18,
+    minPoints: 20,
+    maxPoints: 40,
     minRadius: 80,
     maxRadius: 200
 };
@@ -46,6 +46,24 @@ function createBlob(center, maxRadius, points) {
     var group = new Group();
     group.addChild(path);
     group.addChildren(createEyes(center, maxRadius));
+
+    var mouth = new Path();
+    mouth.strokeColor = 'black';
+
+    var length = 30;//0.5 * (minRadius + maxRadius);
+
+    var r1 = Math.random() * 10;
+    var r2 = Math.random() * 10;
+
+    
+    //path.closed = true;
+    mouth.add(center + new Point({ length: length + r1, angle: 45 }));
+    mouth.add(center + new Point({ length: length, angle: 90 }));
+    mouth.add(center + new Point({ length: length + r2, angle: 135 }));
+    mouth.smooth();
+
+    group.addChild(mouth);
+
 
     // When the mouse is double clicked on the item, remove it:
     group.onDoubleClick = function(event) {
