@@ -4,9 +4,9 @@
 
 var values = {
     paths: 30,
-    minPoints: 20,
-    maxPoints: 40,
-    minRadius: 80,
+    minPoints: 10,
+    maxPoints: 20,
+    minRadius: 30,
     maxRadius: 200
 };
 
@@ -52,14 +52,15 @@ function createBlob(center, maxRadius, points) {
 
     var length = 30;//0.5 * (minRadius + maxRadius);
 
-    var r1 = Math.random() * 10;
-    var r2 = Math.random() * 10;
+    var pts = 3 + Math.random() * 5;
 
-    
-    //path.closed = true;
-    mouth.add(center + new Point({ length: length + r1, angle: 45 }));
-    mouth.add(center + new Point({ length: length, angle: 90 }));
-    mouth.add(center + new Point({ length: length + r2, angle: 135 }));
+    mouthOffset = new Point(0, Math.random() * 30);
+
+    for (var i = 0; i < pts; i++) {
+        var r = Math.random() * 10;
+        mouth.add(center + mouthOffset + new Point({ length: length + r, angle: 180 / pts * i }));
+    }
+
     mouth.smooth();
 
     group.addChild(mouth);
@@ -80,7 +81,7 @@ function createEyes(center, maxRadius){
     var eyeMinSize = 3;
     var eyeMaxSize = 15
 
-    var eyeCount = 3;
+    var eyeCount = Math.random() * 5;
     var eyes = [];
     for (var i=0; i<eyeCount; i++) {
         var eyeOffset = new Point(
